@@ -5,8 +5,8 @@ services:
     plan: free
     repo: https://github.com/Amo808/alwrity_SEO.git
     branch: main
-    buildCommand: chmod +x ./render-build.sh && ./render-build.sh
-    startCommand: chmod +x ./start.sh && ./start.sh
+    buildCommand: chmod +x render-build.sh && bash render-build.sh
+    startCommand: chmod +x start.sh && bash start.sh
     envVars:
       - key: NODE_ENV
         value: production

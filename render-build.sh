@@ -1,19 +1,13 @@
 #!/bin/bash
-# Render build script that properly handles pnpm
+echo "Starting Lobe Chat build process..."
 
-echo "🚀 Starting Lobe Chat build process..."
-
-# Enable corepack and pnpm
-echo "📦 Enabling pnpm..."
+echo "Enabling pnpm..."
 corepack enable pnpm
 
-# Verify pnpm is available
-pnpm --version
+echo "Installing dependencies..."
+pnpm install --no-frozen-lockfile
 
-echo "📥 Installing dependencies..."
-pnpm install --frozen-lockfile
-
-echo "🔨 Building application..."
+echo "Building application..."
 pnpm run build
 
-echo "✅ Build completed successfully!"
+echo "Build completed successfully!"
