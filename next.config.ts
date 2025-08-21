@@ -24,6 +24,14 @@ const nextConfig: NextConfig = {
   ...(isStandaloneMode ? standaloneConfig : {}),
   basePath,
   compress: isProd,
+
+  // Настройки для локального доступа из сети
+  ...(process.env.NODE_ENV === 'development' && {
+    typescript: {
+      ignoreBuildErrors: true,
+    },
+  }),
+
   experimental: {
     optimizePackageImports: [
       'emoji-mart',
@@ -168,6 +176,28 @@ const nextConfig: NextConfig = {
         source: '/apple-touch-icon.png',
       },
     ];
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        // Allow access from local network during development
+        ...(process.env.NODE_ENV === 'development' ? [
+          {
+            source: '/:path*',
+            has: [
+              {
+                type: 'header',
+                key: 'host',
+                value: '(?<host>.*)',
+              },
+            ],
+            destination: '/:path*',
+          }
+        ] : [])
+      ],
+      afterFiles: [],
+      fallback: []
+    };
   },
   logging: {
     fetches: {

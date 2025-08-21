@@ -2,26 +2,36 @@ services:
   - type: web
     name: lobe-chat
     runtime: node
-    plan: free
+    plan: starter
     repo: https://github.com/Amo808/alwrity_SEO.git
     branch: main
-    buildCommand: corepack enable pnpm && pnpm install --no-frozen-lockfile && NODE_OPTIONS="--max-old-space-size=4096" pnpm run build
-    startCommand: corepack enable pnpm && pnpm exec next start -p $PORT
+    buildCommand: |
+      corepack enable
+      corepack prepare pnpm@latest --activate
+      pnpm install --frozen-lockfile --prefer-offline
+      NODE_OPTIONS="--max-old-space-size=6144" pnpm run build
+    startCommand: pnpm start
+    numInstances: 1
     envVars:
       - key: NODE_ENV
         value: production
       - key: NEXTAUTH_SECRET
         generateValue: true
+      - key: NEXTAUTH_URL
+        sync: false
+      - key: NEXT_PUBLIC_SERVICE_MODE
+        value: server
       - key: NEXT_PUBLIC_LOCALE
         value: en-US
-      - key: NEXTAUTH_URL
-        value: https://alwrity-seo.onrender.com
-      - key: AUTH_LOGTO_ISSUER
-        value: https://example.com
-      - key: AUTH_LOGTO_CLIENT_ID
-        value: dummy
-      - key: AUTH_LOGTO_CLIENT_SECRET
-        value: dummy
-    scaling:
-      minInstances: 1
-      maxInstances: 1
+      - key: DATABASE_DRIVER
+        value: node
+      - key: NEXT_PUBLIC_BASE_PATH
+        value: ""
+      - key: ACCESS_CODE
+        value: ""
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_PROXY_URL
+        value: ""
+      - key: APP_URL
+        sync: false

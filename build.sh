@@ -1,13 +1,25 @@
 #!/bin/bash
 # Build script for Render
+set -e
 
-echo "Installing pnpm..."
-corepack enable pnpm
+echo "🚀 Starting build process..."
 
-echo "Installing dependencies..."
-pnpm install --frozen-lockfile
+# Enable corepack and setup pnpm
+echo "⚙️ Setting up pnpm..."
+corepack enable
+corepack prepare pnpm@latest --activate
 
-echo "Building the application..."
-pnpm run build
+# Clean cache to avoid corruption
+echo "🧹 Cleaning cache..."
+rm -rf .next
+rm -rf node_modules/.cache
 
-echo "Build completed successfully!"
+# Install dependencies
+echo "📦 Installing dependencies..."
+pnpm install --frozen-lockfile --prefer-offline
+
+# Build the application
+echo "🏗️ Building application..."
+NODE_OPTIONS="--max-old-space-size=6144" pnpm run build
+
+echo "✅ Build completed successfully!"
