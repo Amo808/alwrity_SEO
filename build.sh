@@ -14,9 +14,9 @@ echo "🧹 Cleaning cache..."
 rm -rf .next
 rm -rf node_modules/.cache
 
-# Install dependencies
+# Install dependencies without frozen lockfile to avoid conflicts
 echo "📦 Installing dependencies..."
-pnpm install --frozen-lockfile --prefer-offline
+pnpm install --no-frozen-lockfile
 
 # Build the application
 echo "🏗️ Building application..."

@@ -2,13 +2,14 @@ services:
   - type: web
     name: lobe-chat
     runtime: node
+    env: node
     plan: starter
     repo: https://github.com/Amo808/alwrity_SEO.git
     branch: main
     buildCommand: |
       corepack enable
       corepack prepare pnpm@latest --activate
-      pnpm install --frozen-lockfile --prefer-offline
+      pnpm install --no-frozen-lockfile
       NODE_OPTIONS="--max-old-space-size=6144" pnpm run build
     startCommand: pnpm start
     numInstances: 1
