@@ -5,8 +5,8 @@ services:
     plan: free
     repo: https://github.com/Amo808/alwrity_SEO.git
     branch: main
-    buildCommand: chmod +x render-build.sh && bash render-build.sh
-    startCommand: chmod +x start.sh && bash start.sh
+    buildCommand: corepack enable pnpm && pnpm install --no-frozen-lockfile && NODE_OPTIONS="--max-old-space-size=4096" pnpm run build
+    startCommand: corepack enable pnpm && pnpm exec next start -p $PORT
     envVars:
       - key: NODE_ENV
         value: production
@@ -14,6 +14,14 @@ services:
         generateValue: true
       - key: NEXT_PUBLIC_LOCALE
         value: en-US
+      - key: NEXTAUTH_URL
+        value: https://alwrity-seo.onrender.com
+      - key: AUTH_LOGTO_ISSUER
+        value: https://example.com
+      - key: AUTH_LOGTO_CLIENT_ID
+        value: dummy
+      - key: AUTH_LOGTO_CLIENT_SECRET
+        value: dummy
     scaling:
       minInstances: 1
       maxInstances: 1
