@@ -6,5 +6,8 @@ echo "Starting Lobe Chat..."
 # Set default port if not set
 export PORT=${PORT:-10000}
 
+# Enable pnpm
+corepack enable pnpm
+
 # Start the application
-npm start
+pnpm start

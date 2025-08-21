@@ -1,18 +1,19 @@
 services:
   - type: web
     name: lobe-chat
-    runtime: docker
+    runtime: node
     plan: free
     repo: https://github.com/Amo808/alwrity_SEO.git
     branch: main
-    dockerCommand: ./start.sh
+    buildCommand: corepack enable pnpm && pnpm install && pnpm run build
+    startCommand: pnpm start
     envVars:
       - key: NODE_ENV
         value: production
-      - key: NEXTAUTH_URL
-        value: https://lobe-chat-render.onrender.com
       - key: NEXTAUTH_SECRET
         generateValue: true
+      - key: NEXT_PUBLIC_LOCALE
+        value: en-US
     scaling:
       minInstances: 1
       maxInstances: 1
