@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: lobe-chat
+    runtime: docker
+    plan: free
+    repo: https://github.com/Amo808/alwrity_SEO.git
+    branch: main
+    dockerCommand: ./start.sh
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXTAUTH_URL
+        value: https://lobe-chat-render.onrender.com
+      - key: NEXTAUTH_SECRET
+        generateValue: true
+    scaling:
+      minInstances: 1
+      maxInstances: 1
