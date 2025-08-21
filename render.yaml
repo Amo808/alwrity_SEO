@@ -5,8 +5,8 @@ services:
     plan: free
     repo: https://github.com/Amo808/alwrity_SEO.git
     branch: main
-    buildCommand: corepack enable pnpm && pnpm install && pnpm run build
-    startCommand: pnpm start
+    buildCommand: chmod +x ./render-build.sh && ./render-build.sh
+    startCommand: chmod +x ./start.sh && ./start.sh
     envVars:
       - key: NODE_ENV
         value: production

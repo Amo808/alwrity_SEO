@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "build": "pnpm run build",
+    "start": "pnpm start",
+    "dev": "pnpm run dev",
+    "postinstall": "echo 'Using pnpm for package management'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
