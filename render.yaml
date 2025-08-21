@@ -9,8 +9,9 @@ services:
     buildCommand: |
       corepack enable
       corepack prepare pnpm@latest --activate
-      pnpm install --no-frozen-lockfile
-      NODE_OPTIONS="--max-old-space-size=6144" pnpm run build
+      bash use-minimal-config.sh
+      pnpm install --no-frozen-lockfile --ignore-scripts
+      NODE_OPTIONS="--max-old-space-size=3072" pnpm run build
     startCommand: pnpm start
     numInstances: 1
     envVars:
